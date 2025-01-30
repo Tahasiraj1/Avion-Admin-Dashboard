@@ -9,6 +9,16 @@ export default {
   ],
   theme: {
   	extend: {
+		fontFamily: {
+			clashDisplay: [
+				'clash-display',
+				'sans-serif'
+			],
+			satoshi: [
+				'satoshi',
+				'sans-serif'
+			]
+		},
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',

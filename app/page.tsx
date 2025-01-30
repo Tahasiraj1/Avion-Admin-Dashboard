@@ -16,7 +16,7 @@ const AdminDashboard = async () => {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-clashDisplay mb-4">Admin Dashboard</h1>
+      <h1 className="text-4xl font-clashDisplay mb-4">Admin Dashboard</h1>
       <Suspense fallback={<BarLoader color="#2A254B" />}>
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 mb-5">
           <AdminBarChart />
