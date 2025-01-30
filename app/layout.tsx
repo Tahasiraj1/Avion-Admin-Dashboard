@@ -1,5 +1,10 @@
+// "use client"
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import AdminSidebar from "@/components/Sidebar";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,12 +28,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <SidebarProvider>
+            <div className="flex w-full">
+              <AdminSidebar />
+              <SidebarTrigger />
+              <main className="flex-1 p-4">{children}</main>
+            </div>
+          </SidebarProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
