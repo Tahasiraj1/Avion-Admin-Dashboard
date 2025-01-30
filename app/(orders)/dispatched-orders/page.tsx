@@ -13,7 +13,7 @@ async function getOrders() {
       throw new Error('Unauthorized');
     }
 
-    const apiUrl = `${process.env.NEXT_PUBLIC_DISPATCHED_ORDERS}` || `${process.env.NEXT_LOCAL_PUBLIC_DISPATCHED_ORDERS}`
+    const apiUrl = `${process.env.NEXT_PUBLIC_DISPATCHED_ORDERS}`
     console.log('Fetching orders from:', apiUrl)
     
     const res = await fetch(apiUrl, { 

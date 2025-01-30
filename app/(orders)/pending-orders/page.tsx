@@ -13,7 +13,7 @@ async function getOrders() {
       throw new Error('Unauthorized');
     }
 
-    const apiUrl = "https://localhost:3000/api/orders?status=pending"
+    const apiUrl = `${process.env.NEXT_PUBLIC_PENDING_ORDERS}`
     console.log('Fetching orders from:', apiUrl)
     
     const res = await fetch(apiUrl, { 
