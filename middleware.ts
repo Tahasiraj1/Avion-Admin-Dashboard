@@ -10,8 +10,14 @@ const isProtectedRoute = createRouteMatcher(["/api(.*)", "/(.*)"]);
 export default clerkMiddleware(async (auth, req) => {
   const { userId } = await auth(); // Get the user ID from the request
   
+  // Allow /sign-in route to be accessed without authentication
   if (req.nextUrl.pathname === "/sign-in") {
-    return NextResponse.next(); // Allow the request
+    return NextResponse.next();
+  }
+
+  // If the user is not logged in, redirect to /sign-in
+  if (!userId) {
+    return NextResponse.redirect("/sign-in");
   }
 
   // For all routes, check if the user is an admin

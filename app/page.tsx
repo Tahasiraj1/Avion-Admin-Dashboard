@@ -13,7 +13,7 @@ const AdminDashboard = async () => {
     redirect("/sign-in")
   }
 
-if (userId) {
+
   return (
     <div className="p-6">
       <h1 className="text-2xl font-clashDisplay mb-4">Admin Dashboard</h1>
@@ -26,7 +26,6 @@ if (userId) {
       </Suspense>
     </div>
   );
-}
 };
 
 export default AdminDashboard;
