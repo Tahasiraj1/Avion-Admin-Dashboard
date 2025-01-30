@@ -8,11 +8,12 @@ import { redirect } from "next/navigation";
 
 const AdminDashboard = async () => {
   const { userId } = await auth();
-  
+
   if (!userId) {
     redirect("/sign-in")
   }
 
+if (userId) {
   return (
     <div className="p-6">
       <h1 className="text-2xl font-clashDisplay mb-4">Admin Dashboard</h1>
@@ -25,6 +26,7 @@ const AdminDashboard = async () => {
       </Suspense>
     </div>
   );
+}
 };
 
 export default AdminDashboard;

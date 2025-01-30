@@ -10,7 +10,7 @@ const isProtectedRoute = createRouteMatcher(["/api(.*)", "/(.*)"]);
 export default clerkMiddleware(async (auth, req) => {
   const { userId } = await auth(); // Get the user ID from the request
   
-  if (!userId && req.nextUrl.pathname === "/sign-in") {
+  if (req.nextUrl.pathname === "/sign-in") {
     return NextResponse.next(); // Allow the request
   }
 
