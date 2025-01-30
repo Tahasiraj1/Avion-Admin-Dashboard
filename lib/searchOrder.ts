@@ -27,7 +27,7 @@ export async function searchOrder(orderId: string) {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                // 'Authorization': `Bearer ${token}`,
+                'Authorization': `Bearer ${token}`,
             },
         });
 
