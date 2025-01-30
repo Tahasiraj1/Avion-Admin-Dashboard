@@ -3,6 +3,7 @@ import { auth } from "@clerk/nextjs/server";
 import { isAdmin } from "@/lib/isAdmin";
 import prisma from "@/lib/prisma";
 
+
 export async function GET(request: Request) {
     const { userId } = await auth();
   
