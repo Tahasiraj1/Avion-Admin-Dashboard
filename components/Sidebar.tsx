@@ -10,6 +10,7 @@ import {
   Settings,
   ShoppingBag,
   Truck,
+  ExternalLink,
 } from "lucide-react";
 import {
   Sidebar,
@@ -30,14 +31,14 @@ import Image from "next/image";
 import { CgLogOut } from "react-icons/cg";
 
 const sidebarItems = [
-  { icon: Home, label: "Home", href: "/" },
+  { icon: BarChart, label: "Analytics", href: "/" },
   { icon: Package, label: "Products", href: "/studio" },
   { icon: Users, label: "Customers", href: "/customers" },
-  { icon: BarChart, label: "Analytics", href: "" },
-  { icon: Settings, label: "Settings", href: "/settings" },
   { icon: ShoppingCart, label: "Pending Orders", href: "/pending-orders" },
   { icon: ShoppingBag, label: "Confirmed Orders", href: "/confirmed-orders" },
   { icon: Truck, label: "Dispatched Orders", href: "/dispatched-orders" },
+  { icon: ExternalLink, label: "Website", href: "/https://hackathon-2-flax.vercel.app/" },
+  { icon: Settings, label: "Settings", href: "/settings" },
 ];
 
 export default function AdminSidebar() {
