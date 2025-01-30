@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { BarLoader } from "react-spinners";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 interface CustomerDetails {
   id: string;
@@ -63,46 +64,46 @@ const CustomersPage = () => {
   return (
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">Customers List</h1>
-      <table className="min-w-full border-collapse border border-gray-300">
-        <thead>
-          <tr>
-            <th className="border border-gray-300 px-4 py-2">First Name</th>
-            <th className="border border-gray-300 px-4 py-2">Last Name</th>
-            <th className="border border-gray-300 px-4 py-2">Email</th>
-            <th className="border border-gray-300 px-4 py-2">Phone Number</th>
-            <th className="border border-gray-300 px-4 py-2">City</th>
-            <th className="border border-gray-300 px-4 py-2">Country</th>
-            <th className="border border-gray-300 px-4 py-2">Purchases</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table className="min-w-full border-collapse border border-gray-300">
+        <TableHeader>
+          <TableRow>
+            <TableHead className="border border-gray-300 px-4 py-2">First Name</TableHead>
+            <TableHead className="border border-gray-300 px-4 py-2">Last Name</TableHead>
+            <TableHead className="border border-gray-300 px-4 py-2">Email</TableHead>
+            <TableHead className="border border-gray-300 px-4 py-2">Phone Number</TableHead>
+            <TableHead className="border border-gray-300 px-4 py-2">City</TableHead>
+            <TableHead className="border border-gray-300 px-4 py-2">Country</TableHead>
+            <TableHead className="border border-gray-300 px-4 py-2">Purchases</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {customers.map((customer) => (
-            <tr key={customer.id}>
-              <td className="border border-gray-300 px-4 py-2">
+            <TableRow key={customer.id}>
+              <TableCell className="border border-gray-300 px-4 py-2">
                 {customer.firstName}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">
+              </TableCell>
+              <TableCell className="border border-gray-300 px-4 py-2">
                 {customer.lastName}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">
+              </TableCell>
+              <TableCell className="border border-gray-300 px-4 py-2">
                 {customer.email}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">
+              </TableCell>
+              <TableCell className="border border-gray-300 px-4 py-2">
                 {customer.phoneNumber}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">
+              </TableCell>
+              <TableCell className="border border-gray-300 px-4 py-2">
                 {customer.city}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">
+              </TableCell>
+              <TableCell className="border border-gray-300 px-4 py-2">
                 {customer.country}
-              </td>
-              <td className="border border-gray-300 px-4 py-2">
+              </TableCell>
+              <TableCell className="border border-gray-300 px-4 py-2">
                 {customer.totalPurchases}
-              </td>
-            </tr>
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </div>
   );
 };
