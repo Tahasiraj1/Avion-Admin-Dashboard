@@ -8,16 +8,18 @@ import { isAdmin } from "./lib/isAdmin";
 const isProtectedRoute = createRouteMatcher(["/api(.*)", "/(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
-  const { userId } = await auth(); // Get the user ID from the request
-  
-  // Allow /sign-in route to be accessed without authentication
-  if (req.nextUrl.pathname === "/sign-in") {
+  const { userId } = await auth();
+  const url = req.nextUrl.clone(); // Clone the current request URL
+  url.pathname = "/sign-in"; // Set the new pathname
+
+  // Allow sign-in page to be accessed without authentication
+  if (req.nextUrl.pathname === "/sign-in" || req.nextUrl.pathname === '/sign-up') {
     return NextResponse.next();
   }
 
   // If the user is not logged in, redirect to /sign-in
   if (!userId) {
-    return NextResponse.redirect("/sign-in");
+    return NextResponse.redirect(url.toString()); // Convert to absolute URL
   }
 
   // For all routes, check if the user is an admin
@@ -40,4 +42,5 @@ export const config = {
     // Always run for API routes
     "/(api|trpc)(.*)",
   ],
+  publicRoutes: ["/sign-in(.*)", "/sign-up(.*)"],
 };
