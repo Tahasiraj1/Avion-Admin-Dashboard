@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { BarLoader } from "react-spinners";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import Image from "next/image";
 
 interface CustomerDetails {
   id: string;
@@ -15,6 +16,7 @@ interface CustomerDetails {
   postalCode: string;
   country: string;
   totalPurchases: number;
+  avatarUrl: string;
 }
 
 const CustomersPage = () => {
@@ -67,6 +69,7 @@ const CustomersPage = () => {
       <Table className="min-w-full border-collapse border border-gray-300">
         <TableHeader>
           <TableRow>
+            <TableHead className="border border-gray-300 px-4 py-2">Avatar</TableHead>
             <TableHead className="border border-gray-300 px-4 py-2">First Name</TableHead>
             <TableHead className="border border-gray-300 px-4 py-2">Last Name</TableHead>
             <TableHead className="border border-gray-300 px-4 py-2">Email</TableHead>
@@ -79,6 +82,15 @@ const CustomersPage = () => {
         <TableBody>
           {customers.map((customer) => (
             <TableRow key={customer.id}>
+              <TableCell className="border border-gray-300 px-4 py-2">
+                <Image
+                src={customer.avatarUrl}
+                alt={customer.firstName}
+                width={30}
+                height={30}
+                className="rounded-sm"
+                />
+              </TableCell>
               <TableCell className="border border-gray-300 px-4 py-2">
                 {customer.firstName}
               </TableCell>

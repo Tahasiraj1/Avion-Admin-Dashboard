@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { auth } from "@clerk/nextjs/server";
+import { auth, clerkClient } from "@clerk/nextjs/server";
 import { isAdmin } from "@/lib/isAdmin";
 
 export async function GET() {
@@ -30,9 +30,25 @@ export async function GET() {
     // Create a map to aggregate customers by clerkId (to avoid duplicates)
     const customerMap: Map<
       string,
-      { customer: object; totalPurchases: number }
+      { customer: object; totalPurchases: number; avatarUrl: string }
     > = new Map();
 
+    // Fetch all users from Clerk to get their avatars
+    const client = await clerkClient();
+    const response = await client.users.getUserList();
+    const users = response.data;
+
+    // Create a map of clerkId to avatarUrl for easier lookup
+    const userAvatars: Map<string, string> = new Map();
+    users.forEach((user) => {
+      const avatarUrl = user.imageUrl;
+      const clerkId = user.id; 
+      if (avatarUrl && clerkId) {
+        userAvatars.set(clerkId, avatarUrl);
+      }
+    });
+
+    // Aggregate orders and associate avatars
     orders.forEach((order) => {
       const clerkId = order.clerkId; // Use clerkId to aggregate orders by customer
 
@@ -43,9 +59,11 @@ export async function GET() {
       } else {
         // Otherwise, create a new entry for this clerkId and sum their purchases
         const totalPurchases = order.items.length;
+        const avatarUrl = userAvatars.get(clerkId) || ""; // Get avatarUrl, or fallback to empty string
         customerMap.set(clerkId, {
           customer: order.customerDetails,
           totalPurchases,
+          avatarUrl,
         });
       }
     });
@@ -55,6 +73,7 @@ export async function GET() {
       (entry) => ({
         ...entry.customer,
         totalPurchases: entry.totalPurchases,
+        avatarUrl: entry.avatarUrl, // Add avatar URL to customer data
       })
     );
 
