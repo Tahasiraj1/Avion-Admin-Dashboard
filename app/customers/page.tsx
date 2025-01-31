@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { BarLoader } from "react-spinners";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Image from "next/image";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+
 
 interface CustomerDetails {
   id: string;
@@ -83,13 +85,10 @@ const CustomersPage = () => {
           {customers.map((customer) => (
             <TableRow key={customer.id}>
               <TableCell className="border border-gray-300 px-4 py-2">
-                <Image
-                src={customer.avatarUrl}
-                alt={customer.firstName}
-                width={30}
-                height={30}
-                className="rounded-sm"
-                />
+                <Avatar>
+                  <AvatarImage src={customer.avatarUrl} />
+                  <AvatarFallback>CS</AvatarFallback>
+                </Avatar>
               </TableCell>
               <TableCell className="border border-gray-300 px-4 py-2">
                 {customer.firstName}
