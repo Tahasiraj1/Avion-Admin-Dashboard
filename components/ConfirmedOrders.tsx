@@ -21,6 +21,14 @@ import {
 import { useUser } from "@clerk/nextjs"
 import { PackageSearch } from "lucide-react"
 import { BarLoader } from "react-spinners"
+import { 
+  Pagination, 
+  PaginationContent, 
+  PaginationItem, 
+  PaginationLink, 
+  PaginationNext, 
+  PaginationPrevious 
+} from "@/components/ui/pagination";
 
 
 interface OrderItem {
@@ -66,6 +74,9 @@ export default function ConfirmedOrdersClient({ orders }: { orders: Order[] }) {
   const currentOrders = orders.slice(indexOfFirstOrder, indexOfLastOrder)
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
+
+  const totalPages = Math.ceil(orders.length / ordersPerPage);
+
 
   const handleOrderSelect = (orderId: string) => {
     setSelectedOrders(prev => 
@@ -247,19 +258,39 @@ export default function ConfirmedOrdersClient({ orders }: { orders: Order[] }) {
         </Accordion>
       </div>
 
-      <div className="mt-4 flex justify-center">
-        {Array.from({ length: Math.ceil(orders.length / ordersPerPage) }, (_, i) => (
-          <button
-            key={i}
-            onClick={() => paginate(i + 1)}
-            className={`mx-1 px-3 py-1 border rounded-full ${
-              currentPage === i + 1 ? 'bg-[#6e62bb] text-black' : 'bg-[#8778e7] text-black'
-            }`}
-          >
-            {i + 1}
-          </button>
-        ))}
-      </div>
+      <Pagination className="mt-6">
+          <PaginationContent>
+            {/* Previous Button */}
+            <PaginationItem className="cursor-pointer">
+              {currentPage > 1 && (
+                <PaginationPrevious onClick={() => paginate(currentPage - 1)} />
+              )}
+            </PaginationItem>
+
+            {/* Page Numbers */}
+            {Array.from({ length: totalPages }, (_, i) => (
+              <PaginationItem className="cursor-pointer" key={i}>
+                <PaginationLink
+                  onClick={() => paginate(i + 1)}
+                  isActive={currentPage === i + 1}
+                >
+                  {i + 1}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+
+            {/* Next Button */}
+            <PaginationItem className="cursor-pointer">
+              <PaginationNext
+                onClick={() => {
+                  if (currentPage < totalPages) {
+                    paginate(currentPage + 1);
+                  }
+                }}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
     </div>
   )
 }
