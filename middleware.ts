@@ -4,6 +4,7 @@ import {
   createRouteMatcher,
 } from "@clerk/nextjs/server";
 import { isAdmin } from "./lib/isAdmin";
+import { redirect } from "next/navigation";
 
 const isProtectedRoute = createRouteMatcher(["/api(.*)", "/(.*)"]);
 
@@ -27,7 +28,7 @@ export default clerkMiddleware(async (auth, req) => {
     const isUserAdmin = await isAdmin(userId);
     if (!isUserAdmin) {
       // Deny access if the user is not an admin
-      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+      return NextResponse.redirect(url.toString());
     }
   }
 
