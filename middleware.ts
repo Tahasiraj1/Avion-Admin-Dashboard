@@ -4,7 +4,6 @@ import {
   createRouteMatcher,
 } from "@clerk/nextjs/server";
 import { isAdmin } from "./lib/isAdmin";
-import { redirect } from "next/navigation";
 
 const isProtectedRoute = createRouteMatcher(["/api(.*)", "/(.*)"]);
 
