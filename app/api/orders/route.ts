@@ -55,6 +55,8 @@ export async function GET(request: Request) {
           { status: 500 }
         );
       }
+    } else {
+      return NextResponse.json({ success: false, error: "Forbidden" }, { status: 403 });
     }
 }
 

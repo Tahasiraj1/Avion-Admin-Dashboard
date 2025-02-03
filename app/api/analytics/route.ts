@@ -1,5 +1,7 @@
 import { google } from "googleapis"
 import { NextResponse } from "next/server"
+import { isAdmin } from "@/lib/isAdmin"
+import { auth } from "@clerk/nextjs/server"
 
 const credentialsJson = process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON
 
@@ -17,6 +19,16 @@ if (!analyticsPropertyId) {
 }
 
 export async function GET() {
+  const { userId } = await auth();
+
+  if (!userId) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  if (!(await isAdmin(userId))) {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+  
   try {
     const auth = new google.auth.GoogleAuth({
       credentials,
