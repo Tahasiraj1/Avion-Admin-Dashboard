@@ -167,6 +167,15 @@ export default function PendingOrders({ orders }: { orders: Order[] }) {
     setSearchError(null);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    } else if (e.key === "Escape") {
+      clearSearch();
+    }
+  };
+
+
   if (!Array.isArray(orders) && !searchResult) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] p-4">
@@ -211,6 +220,7 @@ export default function PendingOrders({ orders }: { orders: Order[] }) {
           )}
           <div className="relative w-full sm+:w-64">
             <Input
+              onKeyDown={handleKeyDown}
               type="text"
               placeholder="Search by Order ID"
               value={searchInput}
