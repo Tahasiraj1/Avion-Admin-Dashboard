@@ -219,7 +219,7 @@ export default function PendingOrders({ orders }: { orders: Order[] }) {
             />
             <Button
               variant="ghost"
-              className="absolute right-0 top-0 hover:bg-emerald-100 rounded-full"
+              className="absolute right-0 top-0 hover:bg-transparent rounded-full"
               onClick={searchResult ? clearSearch : handleSearch}
               disabled={isSearching}
             >

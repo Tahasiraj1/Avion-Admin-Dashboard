@@ -1,13 +1,8 @@
 'use server'
 
 import { NextResponse } from 'next/server';
-import { auth, clerkClient } from '@clerk/nextjs/server';
-
-async function isAdmin(userId: string) {
-  const client = await clerkClient();
-  const user = await client.users.getUser(userId);
-  return user.publicMetadata.role === 'admin';
-}
+import { auth } from '@clerk/nextjs/server';
+import { isAdmin } from '@/lib/isAdmin';
 
 
 export async function searchOrder(orderId: string) {
