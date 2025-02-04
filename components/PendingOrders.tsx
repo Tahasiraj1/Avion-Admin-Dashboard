@@ -67,7 +67,7 @@ export default function PendingOrders({ orders }: { orders: Order[] }) {
   const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchInput, setSearchInput] = useState<string>("");
-  const [searchResult, setSearchResult] = useState<Order | null>(null);
+  const [searchResult, setSearchResult] = useState<Order[] | null>(null);
   const [isSearching, setIsSearching] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
   const [isConfirming, setIsConfirming] = useState<boolean>(false);
@@ -93,7 +93,7 @@ export default function PendingOrders({ orders }: { orders: Order[] }) {
   const indexOfLastOrder = currentPage * ordersPerPage;
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
   const currentOrders = searchResult
-    ? [searchResult]
+    ? searchResult
     : orders.slice(indexOfFirstOrder, indexOfLastOrder);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
@@ -141,7 +141,7 @@ export default function PendingOrders({ orders }: { orders: Order[] }) {
       try {
         const result = await searchOrder(searchInput.trim());
         if (result) {
-          setSearchResult(result as Order);
+          setSearchResult(result as Order[]);
         } else {
           setSearchError(`No order found with ID: ${searchInput}`);
           setSearchResult(null);
