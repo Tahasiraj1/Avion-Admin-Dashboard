@@ -23,7 +23,7 @@ export async function searchOrder(orderId: string) {
     }
 
     try {
-        const response = await fetch(`http://localhost:3000/api/orders?id=${orderId}`, {
+        const response = await fetch(`https://avion-admin-dashboard.vercel.app/api/orders?id=${orderId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
