@@ -29,6 +29,8 @@ import {
   PaginationNext, 
   PaginationPrevious 
 } from "@/components/ui/pagination";
+import { TbSelectAll } from "react-icons/tb";
+import { PiSelectionAllFill } from "react-icons/pi";
 
 
 interface OrderItem {
@@ -85,6 +87,22 @@ export default function ConfirmedOrdersClient({ orders }: { orders: Order[] }) {
         : [...prev, orderId]
     )
   }
+
+    // Function to handle "Select All"
+    const handleSelectAll = () => {
+      const allOrderIds = currentOrders.map((order) => order.id); // Extract order IDs from the current page
+    
+      setSelectedOrders((prev) =>
+        allOrderIds.every((id) => prev.includes(id)) // Check if all orders are already selected
+          ? prev.filter((id) => !allOrderIds.includes(id)) // Deselect all
+          : [...prev, ...allOrderIds.filter((id) => !prev.includes(id))] // Select all
+      );
+    };
+    
+    // Check if all orders on the current page are selected
+    const isAllSelected = currentOrders.every((order) => selectedOrders.includes(order.id));
+    
+  
 
   if (!isLoaded) {
     return (
@@ -154,7 +172,15 @@ export default function ConfirmedOrdersClient({ orders }: { orders: Order[] }) {
         <Table className="w-full border-collapse border border-[#2A254B]">
           <TableHeader>
             <TableRow className="border border-[#2A254B]">
-              <TableHead className="w-16 p-2 text-center">Select</TableHead>
+              <TableHead className="w-16 p-2 text-center">
+                <Button 
+                  variant="ghost"
+                  className="bg-transparent text-black hover:bg-transparent hover:text-black"
+                  onClick={handleSelectAll}
+                >
+                  {isAllSelected ? <PiSelectionAllFill /> : <TbSelectAll />}
+                </Button>
+              </TableHead>
               <TableHead className="p-2 hidden md:table-cell">Order ID</TableHead>
               <TableHead className="p-2">Items</TableHead>
               <TableHead className="p-2 hidden lg:table-cell">Customer Details</TableHead>
