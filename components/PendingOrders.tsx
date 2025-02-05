@@ -226,7 +226,7 @@ export default function PendingOrders({ orders }: { orders: Order[] }) {
             <Button
               onClick={handleConfirmOrders}
               disabled={selectedOrders.length === 0}
-              className="rounded-full bg-[#2A254B] text-white hover:bg-[#4a4280]"
+              className="rounded-md bg-[#2A254B] text-white hover:bg-[#4a4280]"
             >
               {isConfirming ? (
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-emerald-400"></div>
@@ -251,7 +251,7 @@ export default function PendingOrders({ orders }: { orders: Order[] }) {
               disabled={isSearching}
             >
               {isSearching ? (
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-emerald-700"></div>
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[#2A254B]"></div>
               ) : searchResult ? (
                 <X className="h-4 w-4" />
               ) : (
