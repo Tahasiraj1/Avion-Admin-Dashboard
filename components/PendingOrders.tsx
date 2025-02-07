@@ -34,36 +34,9 @@ import {
 } from "@/components/ui/pagination";
 import { TbSelectAll } from "react-icons/tb";
 import { PiSelectionAllFill } from "react-icons/pi";
+import { Order } from "@/Types/types";
 
-interface OrderItem {
-  id: string;
-  name: string;
-  quantity: number;
-  price: number;
-  color: string;
-  size: string;
-}
 
-interface CustomerDetails {
-  id: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  email: string;
-  city: string;
-  houseNo: string;
-  postalCode: string;
-  country: string;
-}
-
-interface Order {
-  id: string;
-  totalAmount: number;
-  createdAt: string;
-  customerDetails: CustomerDetails;
-  items: OrderItem[];
-  status: string;
-}
 
 export default function PendingOrders({ orders }: { orders: Order[] }) {
   const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
@@ -143,6 +116,44 @@ export default function PendingOrders({ orders }: { orders: Order[] }) {
       if (!response.ok) {
         throw new Error("Failed to confirm orders");
       }
+
+      //// I don't think shipEninge lets you create batches with test API keys... ////
+
+      // const shippingresponse = await fetch("/api/shipping", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     customerDetails: {
+      //       firstName: "John",
+      //       lastName: "Doe",
+      //       phoneNumber: "+1 415-555-5678",
+      //       houseNo: "567 Maple St",
+      //       city: "San Francisco",
+      //       state: "CA",
+      //       postalCode: "94107",
+      //       country: "US",
+      //     },
+      //   }),
+      // })
+
+      // const data = await shippingresponse.json()
+
+      // if (!data || !data.label_download || !data.label_download.pdf) {
+      //   throw new Error("Label PDF URL is missing from ShipEngine response.");
+      // }
+  
+
+
+      // // I don't think shipEninge lets you create batches with test API keys...
+      // if (data.form_download?.href) {
+      //   window.open(data.form_download.href, "_blank");
+      //   // Sent Email Using Nodemailer to customer with his order status updation details with tracking number...
+
+      // } else {
+      //   console.error("No form download URL found:", data);
+      // }
 
       router.refresh();
       setSelectedOrders([]);
@@ -231,7 +242,7 @@ export default function PendingOrders({ orders }: { orders: Order[] }) {
               {isConfirming ? (
                 <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-emerald-400"></div>
               ) : (
-                "Confirm"
+                "Confirm & Print Labels"
               )}
             </Button>
           )}

@@ -31,37 +31,7 @@ import {
 } from "@/components/ui/pagination";
 import { TbSelectAll } from "react-icons/tb";
 import { PiSelectionAllFill } from "react-icons/pi";
-
-
-interface OrderItem {
-  id: string;
-  name: string;
-  quantity: number;
-  price: number;
-  color: string;
-  size: string;
-}
-
-interface CustomerDetails {
-  id: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  email: string;
-  city: string;
-  houseNo: string;
-  postalCode: string;
-  country: string;
-}
-
-interface Order {
-  id: string;
-  totalAmount: number;
-  createdAt: string;
-  customerDetails: CustomerDetails;
-  items: OrderItem[];
-  status: string;
-}
+import { Order } from "@/Types/types";
 
 export default function ConfirmedOrdersClient({ orders }: { orders: Order[] }) {
   const [selectedOrders, setSelectedOrders] = useState<string[]>([])

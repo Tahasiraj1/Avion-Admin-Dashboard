@@ -27,36 +27,8 @@ import {
   PaginationNext, 
   PaginationPrevious 
 } from "@/components/ui/pagination";
+import { Order } from "@/Types/types";
 
-interface OrderItem {
-  id: string;
-  name: string;
-  quantity: number;
-  price: number;
-  color: string;
-  size: string;
-}
-
-interface CustomerDetails {
-  id: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  email: string;
-  city: string;
-  houseNo: string;
-  postalCode: string;
-  country: string;
-}
-
-interface Order {
-  id: string;
-  totalAmount: number;
-  createdAt: string;
-  customerDetails: CustomerDetails;
-  items: OrderItem[];
-  status: string;
-}
 
 export default function DispatchedOrdersClient({ orders }: { orders: Order[] }) {
   const [currentPage, setCurrentPage] = useState<number>(1)
