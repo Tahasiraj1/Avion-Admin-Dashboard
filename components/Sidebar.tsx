@@ -41,6 +41,7 @@ const sidebarItems = [
     icon: ExternalLink,
     label: "Website",
     href: "https://hackathon-2-flax.vercel.app/",
+    target: "_blank",
   },
   { icon: Settings, label: "Settings", href: "/" },
 ];
