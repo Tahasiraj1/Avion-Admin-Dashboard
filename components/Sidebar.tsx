@@ -40,9 +40,9 @@ const sidebarItems = [
   {
     icon: ExternalLink,
     label: "Website",
-    href: "/https://hackathon-2-flax.vercel.app/",
+    href: "https://hackathon-2-flax.vercel.app/",
   },
-  { icon: Settings, label: "Settings", href: "/settings" },
+  { icon: Settings, label: "Settings", href: "/" },
 ];
 
 export default function AdminSidebar() {
